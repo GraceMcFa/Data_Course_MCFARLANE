@@ -6,3 +6,4 @@ They should have given us a longer winter break
 I really wish I had a snack right now
 배고파요
 I'm really over the snow
+I went and got a snack
