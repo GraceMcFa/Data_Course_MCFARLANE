@@ -6,3 +6,4 @@ Everything was working and I had done what it said to do 10 times, but then I wa
 SOS
 Slowly going crazy 
 I'm also hungry so that is not helping
+Might just give up 
