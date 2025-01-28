@@ -1,3 +1,4 @@
 rrrr
 This README file contains information about my uploaded assignments
 Ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+Sometimes this class makes me feel stupid
