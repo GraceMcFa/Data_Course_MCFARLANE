@@ -4,3 +4,4 @@ Ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
 Sometimes this class makes me feel stupid
 They should have given us a longer winter break
 I really wish I had a snack right now
+배고파요
