@@ -1,0 +1,31 @@
+Assignment 3 Notes
+#1 
+iris_even <- iris[seq(2, 150, 2), ]
+seq(2, 150, 2) generates a sequence of even numbers from 2 to 150.
+iris[seq(2, 150, 2), ] selects only the rows at these even-numbered indices from the iris dataset.
+The result is stored in a new data frame iris_even.
+
+#2 
+iris_chr <- data.frame(lapply(iris, as.character), stringsAsFactors = FALSE)
+lapply(iris, as.character) applies the as.character() function to every column in iris, converting all values to character strings.
+data.frame(..., stringsAsFactors = FALSE) ensures the new data frame is created without automatically converting character columns into factors.
+The result is stored in iris_chr, where every column is now a character data type.
+
+#3
+Sepal.Area <- iris$Sepal.Length * iris$Sepal.Width
+iris$Sepal.Length extracts the Sepal Length column.
+iris$Sepal.Width extracts the Sepal Width column.
+Multiplying these two (*) gives a new numeric vector representing the Sepal Area.
+The result is stored in Sepal.Area
+
+
+#4 
+iris$Sepal.Area <- Sepal.Area
+This adds the Sepal.Area vector as a new column in the iris data frame.
+Now, iris has an additional column named Sepal.Area
+
+
+#5
+big_area_iris <- subset(iris, Sepal.Area > 20)
+subset(iris, Sepal.Area > 20) filters the iris data frame to include only rows where Sepal.Area is greater than 20.
+The result is stored in big_area_iris, which contains only the rows meeting this condition.

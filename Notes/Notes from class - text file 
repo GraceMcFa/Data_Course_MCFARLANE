@@ -1,0 +1,177 @@
+Notes from class
+using this script as notes
+csv_files <- list.files(path = "Data/", pattern = "\\.csv$", full.names = TRUE)
+#list.files(path = 'Data/', pattern = '.csv')# 
+#^ - means beging with#
+##file name start with something##
+list.files(path = 'Data/', pattern = '^b')
+list.files(path = 'Data/', pattern = '^B')
+#$ - means end with#
+to learn more, search: regex (regular expression) 
+next class we will be learning how to subset a small data set 
+readLines 
+read.csv 
+what is the difference between these two 
+line <- readLines('Data/wide_income_rent.csv')
+line[1]
+View(...)
+head(another function to take a look at data)
+tail(tail showes from the bottom)
+dat <- iris
+[brackets mean take from this position]
+ex [3(row),4(collumn)]
+#object - stores the data in R 
+#vector? is one dimention with same type 
+#3 types of vectors 
+#numeric vector
+vec_num <- c(1:3, 2:4)
+vec_num <- c(1,2,3,2,3,4)
+vec_num[2] #2nd elevment in the vector 
+#character vector 
+vec <- 'apple', 'banana', 'kiwi'
+vec_chr <- c('apple', 'banana', 'kiwi')
+#logical vector (TRUE/FALSE)
+you can ask R is.numeric(vec_num)
+
+vec_mix <- c(1, 'apple', TRUE)
+#types of objects in R 
+#1. vector (1D, same type)
+#2. matrix (2D, must be same type of data)
+#3. array (multiple dimension, same type)
+  ex. arr <- array(1:18, dim = c(3,3,2)) = #row, col, layer 
+#4. data frame (we can have different type of data, same length#)
+#5. list (multi dim, different type)
+#6. function (store a function), anything in R that ends with a () is a function 
+
+    
+you can convert a vector to a character - chr <- as.character(vec)
+  
+  
+mat <- matrix(1:6, nrow = 3)
+mat[2,1]
+#matrix is row and column
+as.character(?) #assigning something I think
+#factor and vector are similar 
+
+#readLines(file1, n = 1)
+#readLines(file2, n = 1)
+or ## loop ## 
+# while loop (repeat until finished)
+
+# for loop (repeat on a schedual until finished, need to give it a vector to run)
+{ ## i.e. go through each variable/element in the ...}
+  
+
+## write a loop to print out 12 month## 
+  you can put a loop inside another loop 
+  for (variable in vector){}
+for (i in vec) {
+  for (j in vec_2) {
+  out = paste('I like')
+  print(out)
+}
+}
+#work on setting a vector 
+  
+  #8. Find any files (recursively) in the Data/ directory that begin with the letter “b” (lowercase)
+getwd()
+
+list.files('Data/' , pattern = '^b' , recursive = T)
+  
+#9. Write a command that displays the first line of each of those “b” files (this is tricky… use a for-loop)
+read.csv()
+readLines('data-shell/creatures/basilisk.ddat')
+ #adding n = 1 so it will only read one line 
+ readLines('Data/Messy_Take2/b_df.csv' , n = 1)
+#use a for-loop = vec <- c(1, 2, 3)
+  readLines(filename, n = 1)
+  for (variable in vector){
+  }
+ #Create a vector: bfile <- list.files('Data/' , pattern = '^b' , recursive = T)
+for (file in bfile) { 
+  setwd(Data/'')
+  first_line <- readLines(file, n = 1)
+  print(first_line)
+}
+ 
+ for (file in bfile) 
+   filepath <- paste0('Data/', file)
+ print(filepath)
+ #first_line <- readLines(filepath, n = 1)
+ #print(first_line)
+
+ #'Data/' = '/Users/yu-yaliang/Desktop/BIOL3100/Data_Course_LASTNAME/Data/'
+
+#../ means go back one layer, need to put it in the path
+so like list.files('../')
+
+
+getwd() get working directory 
+current_wd <- getwd()
+filepath <- paste0(current_wd, '/', file)
+#print(filepath)
+
+
+for bfile you need the numbers like 1, 2, 3 
+but for list files 
+b_files = list.files (path = 'Data/', pattern = '^b', recursive = True, full.names)
+(EXAMPLE) setwd('/Users/winni/Data_Course_ALLRED')
+
+
+path for my rProject = '/Users/(your user name on your computer)/Desktop/Data_Course_MCFARLANE'
+#how can I copy the path? 
+  #'Data/' = '/Users/yu-yaliang/Desktop/BIOL3100/Data_Course_LASTNAME/Data/'
+
+dat <- read.csv('Data/1620_scores.csv')
+dim(dat) #89 25 
+dat[3, 4] #[row, col]
+dat[1:3, 1:4]
+dat[, 3] #if you don't specifiy anything it means everything 
+
+## build a data frame for 'mtccars' dataset 
+data("mtcars")
+mtcars 
+  #[] - bracket means the position I want to get things out 
+dat <- mtcars 
+dim(dat) #32 11
+str(dat) #structure
+
+## get cars with cyl greater than 4 
+dat[dat$cyl > 4, ]
+cyl_greater_4 <- dat[dat$cyl > 4, ] #to save the data greater than 4 
+
+
+  #View(cyl_greater_4) in the console to view the data 
+## pull out mpg data and calculate average, min, and max mpg 
+dat[]
+str(dat)
+dat$mpg
+car_mpg <- dat$mpg
+
+dat[, c("mgp", "cyl")]
+dat[, c(1:2)]
+
+mean(car_mgp)
+summary(dat$mgp)
+max()
+min()
+str(dat)
+
+## convert 'mpg' to character in mtcars data frame
+as.character()
+as.character(dat$mpg)
+chr_mpg <- as.character(data$mpg)
+str(chr_mpg)
+  #convert back from character 
+dat$mpg <- chr_mpg
+str(dat) 
+
+dat$mpg_num <- as.numeric(chr_mpg)
+View(dat)
+str(dat)
+
+## convert entire data frame to character 
+
+
+
+install.packages('qrcode')
