@@ -1,0 +1,14 @@
+Final_project_idea
+- For my data analysis final project I want to use my data I have collected from my independent research project with Dr. Rotter on Thimbleberry germination rates. The data collected was the days until first germination, the germination percentage per treatment, and per population. At least something to that effect. 
+
+library(tidyverse)
+df <- read_csv("Rubus_Data_Sheet_All.csv")
+glimpse(df)
+
+ggplot(df, aes(x = Treatment, y = `days until 1st germination`, fill = Populations)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(title = "Bar Graph Example", x = "Category", y = "Value") +
+  scale_fill_brewer(palette = "Set2")
+
+ggsave("barplot.png", width = 6, height = 4, dpi = 300)
