@@ -1,0 +1,153 @@
+---
+title: "Exam 3"
+output: 
+  html_document:
+    theme: flatly
+    highlight: tango
+    toc: true
+    toc_depth: 4
+    toc_float:
+      collapsed: true
+      smooth_scroll: true
+---
+Grace McFarlane
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+## Setup
+```{r}
+library(tidyverse)
+library(broom)
+```
+
+---
+
+## Task 1
+```{r}
+#Read in csv 
+dat <- read.csv("FacultySalaries_1995.csv")
+```
+
+
+### Tidy data for plotting
+```{r}
+dat <- dat %>% 
+  filter(Tier %in% c("I","IIA", "IIB")) %>% 
+  select("Tier", "State",
+         Full = "AvgFullProfSalary", 
+         Assoc = "AvgAssocProfSalary", 
+         Assist = "AvgAssistProfSalary") %>% 
+  pivot_longer(cols = c("Full", "Assoc", "Assist"),
+               names_to = "Rank",
+               values_to = "Salary")
+```
+
+### Creating the Plot
+```{r}
+p1_data<- 
+  ggplot(dat)+
+  aes(x = Rank, y = Salary, fill = Rank)+
+  geom_boxplot()+
+  facet_wrap(~Tier)+
+  labs( 
+    x = "Rank", 
+    y = "Salary", 
+    fill = "Rank" 
+  ) + 
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45)
+  ) 
+
+print(p1_data)
+```
+
+---
+
+## Task 2
+```{r}
+#verify factors are set before making model
+head(dat)
+#set factor levels
+dat$Tier <- factor(dat$Tier)
+dat$Rank <- factor(dat$Rank)
+
+#make model
+anova_model <- aov(Salary ~ State + Tier + Rank, data = dat)
+
+#get model summary
+summary(anova_model)
+```
+State, tier, and rank are statistically significant predictors of professor salary. 
+
+---
+
+## Task 3
+```{r}
+#read in csv
+juniper <- read.csv("Juniper_Oils.csv")
+```
+
+### Select Necessary Info
+```{r}
+important_juniper <- juniper %>% 
+  select(YearsSinceBurn, alpha.pinene:thujopsenal)
+```
+
+### Tidy Data
+```{r}
+long_juniper <- important_juniper %>% 
+  pivot_longer(cols = alpha.pinene:thujopsenal,
+               names_to = "Chemical_name",
+               values_to = "Concentration")
+```
+
+## Task 4
+Make a plot showing the following:
+   
+- x = YearsSinceBurn
+- y = Concentration
+- facet = ChemicalID (use free y-axis scales)
+
+```{r}
+ggplot(long_juniper)+
+  aes(x = YearsSinceBurn, y = Concentration)+
+  facet_wrap(~Chemical_name, scales = "free_y")+
+  geom_smooth(color = 'blue')+
+  theme_minimal() +
+  theme(
+    strip.text = element_text(size = 7) #make text just a little smaller so you can see the full chemical name
+  ) +
+  labs(
+    title = "Chemical Concentrations and Years Since Burn",
+    x = "Years Since Burn",
+    y = "Concentration"
+  )
+```
+
+---
+
+## Task 5
+Use a generalized linear model (glm) to find which chemicals show concentrations that are significantly affected by years since burn.
+__Assume significance = p<0.05.__
+
+
+```{r}
+
+juniper_mod_big <- glm(Concentration ~ YearsSinceBurn * Chemical_name, 
+                       data = long_juniper)
+
+#tidy model output
+mod_output <- tidy(juniper_mod_big)
+
+#filter for significant interactions
+significant_chemicals <- mod_output %>% 
+  filter(p.value < 0.05) 
+
+print(significant_chemicals)
+```
+
