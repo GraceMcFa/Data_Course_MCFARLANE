@@ -1,0 +1,13 @@
+Assignment 8 questions 
+1. Are any of your predicted response values from your best model scientifically meaningless? Explain.
+	None of the predicted values from my best model are scientifically meaningless. They fall in the range of observed growth rates in the dataset and are reasonable based on known mushroom growth patterns under varying environmental conditions. 
+
+
+2. In your plots, did you find any non-linear relationships? Do a bit of research online and give a link to at least one resource explaining how to deal with modeling non-linear relationships in R.
+	Yes there are two non-linear relationships; light and nitrogen. They both show curved trends, which shows a non-linear relationship. Non-linear Regression with nls(). 
+
+
+3. Write the code you would use to model the data found in “/Data/non_linear_relationship.csv” with a linear model (there are a few ways of doing this)
+	
+	model_nls <- nls(Y ~ a * (1 - exp(-b * X)), data = nonlinear_data,
+        start = list(a = 1, b = 0.1))
