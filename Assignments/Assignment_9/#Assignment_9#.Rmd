@@ -1,0 +1,80 @@
+---
+title: '#Assignment_9#'
+author: "Grace McFarlane"
+date: "2025-04-19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(janitor)
+library(ggplot2)
+library(pROC)
+library(caret)
+```
+
+## load data
+
+```{r cars}
+data <- read_csv("GradSchool_Admissions.csv")
+glimpse(data)
+summary(data)
+```
+
+## Data Cleaning 
+
+```{r}
+data$rank <- as.factor(data$rank)
+data$admit <- as.factor(data$admit)
+levels(data$admit) <- c("No", "Yes")
+```
+
+## Data Analysis 
+
+```{r}
+ggplot(data, aes(x = gre, fill = admit)) + 
+  geom_histogram(position = "dodge", bins = 30) + 
+  theme_minimal() + labs(title = "GRE Score Distribution by Admission")
+
+ggplot(data, aes(x = gpa, fill = admit)) + 
+  geom_histogram(position = "dodge", bins = 30) + 
+  theme_minimal() + labs(title = "GPA Distribution by Admission")
+
+ggplot(data, aes(x = rank, fill = admit)) + 
+  geom_bar(position = "fill") +
+  labs(title = "Proportion of Admission by School Rank", y = "Proportion")
+```
+
+## Log Regression Model 
+
+```{r}
+model1 <- glm(admit ~ gre + gpa + rank, data = data, family = "binomial")
+summary(model1)
+```
+
+## Model Eval 
+
+```{r}
+# Predict probabilities
+pred_probs <- predict(model1, type = "response")
+
+# ROC curve
+roc_obj <- roc(data$admit, pred_probs)
+plot(roc_obj, col = "blue", main = "ROC Curve")
+auc(roc_obj)
+
+# Confusion Matrix
+pred_class <- ifelse(pred_probs > 0.5, "Yes", "No")
+confusionMatrix(factor(pred_class, levels = c("No", "Yes")), data$admit)
+```
+
+## Model Selection 
+
+```{r}
+# Alternative model without 'rank'
+model2 <- glm(admit ~ gre + gpa, data = data, family = "binomial")
+AIC(model1, model2)
+```
+
+
